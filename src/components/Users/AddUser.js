@@ -6,14 +6,8 @@ import Button from '../UI/Button';
 
 const AddUser = (props) => {
     const [enteredValue, setEnteredValue] = useState('');
+    const [enteredAge, setEnteredAge] = useState('');
     const [isValid, setIsValid] = useState(true);
-
-    const goalInputChangeHandler = event => {
-        if (event.target.value.trim().length > 0) {
-          setIsValid(true);
-        }
-        setEnteredValue(event.target.value);
-      };
 
     const addUserHandler = (event) => {
         event.preventDefault();
@@ -21,6 +15,18 @@ const AddUser = (props) => {
             setIsValid(false);
             return;
           }
+          console.log(enteredValue, enteredAge);
+    };
+
+    const usernameChangeHandler = event => {
+        if (event.target.value.trim().length > 0) {
+          setIsValid(true);
+        }
+        setEnteredValue(event.target.value);
+      };
+
+    const addAgeHandler = (event) => {
+        setEnteredAge(event.target.value);
     };
 
     return(
@@ -30,9 +36,12 @@ const AddUser = (props) => {
                 <input 
                     id='username' 
                     type='text'
-                    onChange={goalInputChangeHandler}/>
+                    onChange={usernameChangeHandler}/>
                 <label htmlFor='userage'>Age (Years)</label>
-                <input id='age' type='number'/>
+                <input 
+                    id='age' 
+                    type='number'
+                    onChange={addAgeHandler}/>
                 <Button type='age'>Add User</Button>
             </form>
         </Card>
