@@ -7,21 +7,21 @@ import Button from '../UI/Button';
 const AddUser = (props) => {
     const [enteredValue, setEnteredValue] = useState('');
     const [enteredAge, setEnteredAge] = useState('');
-    const [isValid, setIsValid] = useState(true);
 
     const addUserHandler = (event) => {
         event.preventDefault();
-        if (enteredValue.trim().length === 0) {
-            setIsValid(false);
+        if (enteredValue.trim().length === 0 || enteredAge.trim().length === 0) {
             return;
-          }
+        }
+        if (+enteredAge < 1) {
+            return;
+        }
           console.log(enteredValue, enteredAge);
+          setEnteredValue('');
+          setEnteredAge('');
     };
 
-    const usernameChangeHandler = event => {
-        if (event.target.value.trim().length > 0) {
-          setIsValid(true);
-        }
+    const usernameChangeHandler = (event) => {
         setEnteredValue(event.target.value);
       };
 
@@ -36,11 +36,13 @@ const AddUser = (props) => {
                 <input 
                     id='username' 
                     type='text'
+                    value={enteredValue} // ?
                     onChange={usernameChangeHandler}/>
                 <label htmlFor='userage'>Age (Years)</label>
                 <input 
                     id='age' 
                     type='number'
+                    value={enteredAge}
                     onChange={addAgeHandler}/>
                 <Button type='age'>Add User</Button>
             </form>
